@@ -1,11 +1,14 @@
 const React = require('react');
 const Tracker = require('./Tracker');
 const Loading = require('./Loading');
+const AddLog = require('./AddLog');
+const LogModal = require('./LogModal');
 const getLogs = require('../services/time-logs');
 
 const TrackerContainer = React.createClass({
   getInitialState() {
     return {
+      log: {},
       logs: [],
       isLoading: true,
     };
@@ -17,9 +20,19 @@ const TrackerContainer = React.createClass({
   },
   onTrackerItemClick(event, log) {
     event.preventDefault();
-    // TODO: cargar modal con esto, como hago??
-    console.log(event);
-    console.log(log);
+
+    this.setState({ log });
+    $('#log-modal').openModal();
+  },
+  onAddLogClick(event) {
+    event.preventDefault();
+    // Esto se puede hacer de otra forma más react?
+    this.setState({ log: {} });
+    $('#log-modal').openModal();
+  },
+  onSaveLog(event) {
+    event.preventDefault();
+    console.log('Guardar log');
   },
   render() {
     if (this.state.isLoading === true) {
@@ -29,7 +42,11 @@ const TrackerContainer = React.createClass({
     }
 
     return (
-      <Tracker logs={this.state.logs} handleItemClick={this.onTrackerItemClick} />
+      <div>
+        <Tracker logs={this.state.logs} handleItemClick={this.onTrackerItemClick} />
+        <AddLog handleClick={this.onAddLogClick} />
+        <LogModal log={this.state.log} handleClick={this.onSaveLog} />
+      </div>
     );
   },
 });

@@ -5,6 +5,7 @@ function getLogs(user, date) {
       title: 'Buen usuario',
       description: 'Se realizaron pruebas sobre el componente',
       color: 'teal',
+      projectId: 1,
       time: 1.5,
     },
     {
@@ -12,6 +13,7 @@ function getLogs(user, date) {
       title: 'Buen usuario',
       description: 'Implementación de algo',
       color: 'teal',
+      projectId: 1,
       time: 3,
     },
     {
@@ -19,6 +21,7 @@ function getLogs(user, date) {
       title: 'Armada',
       description: 'Implementación de pantalla',
       color: 'green',
+      projectId: 2,
       time: 1,
     },
   ];

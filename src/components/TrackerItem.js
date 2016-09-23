@@ -5,7 +5,7 @@ function TrackerItem(props) {
   const textColor = `${props.log.color}-text`;
 
   return (
-    <a href="" className="collection-item avatar" onClick={(event) => { props.handleClick(event, props.log); }} key={props.id}>
+    <a className="collection-item avatar" onClick={(event) => { props.handleClick(event, props.log); }}>
       {props.handleClick}
       <div className="row">
         <div className="col m11">
