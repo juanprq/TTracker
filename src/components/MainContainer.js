@@ -1,11 +1,12 @@
 const React = require('react');
+const TrackerContainer = require('./TrackerContainer');
 
-const MainContainer = (props) =>  {
+const MainContainer = () => {
   return (
     <div className="s12">
-      {props.children}
+      <TrackerContainer />
     </div>
-  )
+  );
 };
 
 module.exports = MainContainer;
