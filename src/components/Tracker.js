@@ -1,16 +1,12 @@
 const React = require('react');
 const TrackerItem = require('./TrackerItem');
+const TrackerTitle = require('./TrackerTitle');
 
 function Tracker(props) {
   return (
     <div className="col m12">
       <div className="section">
-        <h2 className="header indigo-text darken-4-text">
-          Tracker - fecha de hoy
-        </h2>
-        <p>
-          Registra y realiza el seguimiento del tiempo que inviertes en tus proyectos.
-        </p>
+        <TrackerTitle />
       </div>
       <div className="section">
         <div className="collection">

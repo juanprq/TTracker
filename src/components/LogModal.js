@@ -50,8 +50,18 @@ class LogModal extends React.Component {
           </div>
         </div>
         <div className="modal-footer">
-          <a onClick={this.props.handleClick} className="modal-action modal-close waves-effect waves-green btn-flat">
+          <a onClick={this.props.handleClick} className="modal-action modal-close waves-effect waves-light btn">
+            <i className="material-icons left">
+              done
+            </i>
             Aceptar
+          </a>
+
+          <a className="red modal-action modal-close waves-effect waves-light btn">
+            <i className="material-icons left">
+              delete
+            </i>
+            Eliminar
           </a>
         </div>
       </div>
