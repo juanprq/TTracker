@@ -1,18 +1,18 @@
 const React = require('react');
 
-function Home() {
+function Reports() {
   return (
     <div className="section">
       <div>
         <h2 className="header indigo-text darken-4-text">
-          Home
+          Reportes
         </h2>
         <p>
-          Descripción para el home.
+          Descripción para los reportes.
         </p>
       </div>
     </div>
   );
 }
 
-module.exports = Home;
+module.exports = Reports;
