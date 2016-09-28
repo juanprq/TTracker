@@ -10,7 +10,9 @@ ReactDOM.render((
   <Router history={hashHistory}>
     <Route path="/" component={MainMenu}>
       <IndexRoute component={Home} />
-      <Route path="/trackers" component={TrackerContainer} />
+      <Route path="/trackers" component={TrackerContainer}>
+        <Route path="/trackers/:date" component={TrackerContainer} />
+      </Route>
       <Route path="/reports" component={Reports} />
     </Route>
   </Router>
