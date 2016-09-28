@@ -1,12 +1,15 @@
 const React = require('react');
-const TrackerContainer = require('./TrackerContainer');
 
-const MainContainer = () => {
+function MainContainer(props) {
   return (
     <div className="s12">
-      <TrackerContainer />
+      {props.children}
     </div>
   );
+}
+
+MainContainer.propTypes = {
+  children: React.PropTypes.object,
 };
 
 module.exports = MainContainer;
