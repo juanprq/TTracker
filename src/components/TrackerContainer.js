@@ -1,9 +1,9 @@
-const React = require('react');
-const Tracker = require('./Tracker');
-const Loading = require('./Loading');
-const AddLog = require('./AddLog');
-const LogModal = require('./LogModal');
-const getLogs = require('../services/time-logs');
+import React from 'react';
+import Tracker from './Tracker';
+import Loading from './Loading';
+import AddLog from './AddLog';
+import LogModal from './LogModal';
+import getLogs from '../services/time-logs';
 
 class TrackerContainer extends React.Component {
   constructor(props) {
@@ -54,7 +54,7 @@ class TrackerContainer extends React.Component {
 
     return (
       <div>
-        <Tracker logs={this.state.logs} handleItemClick={this.onTrackerItemClick} />
+        <Tracker currentDate={this.props.params.date} logs={this.state.logs} handleItemClick={this.onTrackerItemClick} />
         <AddLog handleClick={this.onAddLogClick} />
         <LogModal {...this.state.log} handleClick={this.onSaveLog} />
       </div>

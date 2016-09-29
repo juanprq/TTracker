@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 function TrackerItem(props) {
   const colorClass = `material-icons circle ${props.log.color}`;

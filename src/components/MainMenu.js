@@ -1,6 +1,6 @@
-const React = require('react');
-const { IndexLink } = require('react-router');
-const NavLink = require('./NavLink');
+import React from 'react';
+import { IndexLink } from 'react-router';
+import NavLink from './NavLink';
 
 function MainMenu(props) {
   return (

@@ -1,11 +1,17 @@
-const React = require('react');
-const TrackerItem = require('./TrackerItem');
-const TrackerTitle = require('./TrackerTitle');
-const DaySelector = require('./DaySelector');
+import React from 'react';
+import TrackerItem from './TrackerItem';
+import TrackerTitle from './TrackerTitle';
+import DaySelector from './DaySelector';
 
-function Tracker(props) {
+function Tracker({ logs, currentDate, handleItemClick }) {
+  let dateObject;
 
-  const currentDate = new Date();
+  if (!currentDate) {
+    dateObject = new Date();
+  } else {
+    const parts = currentDate.split('-');
+    dateObject = new Date(parts[1] - 1, parts[0], parts[2]);
+  }
 
   return (
     <div className="col m12">
@@ -13,11 +19,11 @@ function Tracker(props) {
         <TrackerTitle />
       </div>
       <div className="section">
-        <DaySelector currentDate={currentDate} />
+        <DaySelector currentDate={dateObject} />
       </div>
       <div className="section">
         <div className="collection">
-          {props.logs.map(log => <TrackerItem key={log.id} log={log} handleClick={props.handleItemClick} />)}
+          {logs.map(log => <TrackerItem key={log.id} log={log} handleClick={handleItemClick} />)}
         </div>
       </div>
     </div>
@@ -26,6 +32,7 @@ function Tracker(props) {
 
 Tracker.propTypes = {
   logs: React.PropTypes.array,
+  currentDate: React.PropTypes.string,
   handleItemClick: React.PropTypes.func,
 };
 

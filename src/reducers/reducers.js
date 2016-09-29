@@ -1,5 +1,5 @@
-const trackers = require('./trackers');
-const { combineReducers } = require('redux');
+import { combineReducers } from 'redux';
+import trackers from './trackers';
 
 const ttApp = combineReducers({
   trackers,
