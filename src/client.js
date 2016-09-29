@@ -1,19 +1,12 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
-const MainMenu = require('./components/MainMenu');
-const TrackerContainer = require('./components/TrackerContainer');
-const Home = require('./components/Home');
-const Reports = require('./components/Reports');
-const { Router, Route, hashHistory, IndexRoute } = require('react-router');
+const { Provider } = require('react-redux');
+const configureStore = require('./configureStore');
+const Root = require('./components/Root');
 
+const store = configureStore();
 ReactDOM.render((
-  <Router history={hashHistory}>
-    <Route path="/" component={MainMenu}>
-      <IndexRoute component={Home} />
-      <Route path="/trackers" component={TrackerContainer}>
-        <Route path="/trackers/:date" component={TrackerContainer} />
-      </Route>
-      <Route path="/reports" component={Reports} />
-    </Route>
-  </Router>
+  <Provider store={store}>
+    <Root />
+  </Provider>
   ), document.getElementById('root'));
