@@ -1,4 +1,4 @@
-function getLogs(user, date) {
+function getLogs() {
   const data = [
     {
       id: 1,

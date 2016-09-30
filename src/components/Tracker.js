@@ -9,14 +9,13 @@ function Tracker({ logs, currentDate, handleItemClick }) {
   if (!currentDate) {
     dateObject = new Date();
   } else {
-    const parts = currentDate.split('-');
-    dateObject = new Date(parts[1] - 1, parts[0], parts[2]);
+    dateObject = new Date(currentDate);
   }
 
   return (
     <div className="col m12">
       <div className="section">
-        <TrackerTitle />
+        <TrackerTitle currentDate={dateObject} />
       </div>
       <div className="section">
         <DaySelector currentDate={dateObject} />

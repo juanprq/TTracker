@@ -2,7 +2,7 @@ import React from 'react';
 import DayLink from './DayLink';
 
 function formatDate(date) {
-  return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 }
 
 function DaySelector({ currentDate }) {
@@ -22,5 +22,9 @@ function DaySelector({ currentDate }) {
     </div>
   );
 }
+
+DaySelector.propTypes = {
+  currentDate: React.PropTypes.object,
+};
 
 module.exports = DaySelector;

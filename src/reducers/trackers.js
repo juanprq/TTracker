@@ -1,10 +1,33 @@
-function trackers(state = [], action) {
+const defaultState = {
+  loading: false,
+  data: [],
+};
+
+function trackers(state = defaultState, action) {
   switch (action.type) {
-    case 'ADD_TRACKER':
+    case 'FETCH_TRACKERS_REJECTED':
+      return Object.assign({}, state, { loading: false });
+    case 'FETCH_TRACKERS_PENDING':
+      return Object.assign({}, state, { loading: true });
+    case 'FETCH_TRACKERS_FULFILLED':
+      return Object.assign({}, state, { data: action.payload, loading: false });
+    case 'UPDATE_TRACKER_REJECTED':
       return state;
-    case 'UPDATE_TRACKER':
+    case 'UPDATE_TRACKER_PENDING':
       return state;
-    case 'REMOVE_TRACKER':
+    case 'UPDATE_TRACKER_FULFILLED':
+      return state;
+    case 'REMOVE_TRACKER_REJECTED':
+      return state;
+    case 'REMOVE_TRACKER_PENDING':
+      return state;
+    case 'REMOVE_TRACKER_FULFILLED':
+      return state;
+    case 'ADD_TRACKER_REJECTED':
+      return state;
+    case 'ADD_TRACKER_PENDING':
+      return state;
+    case 'ADD_TRACKER_FULFILLED':
       return state;
     default:
       return state;
