@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 class LogModal extends React.Component {
   constructor(props) {
@@ -17,10 +18,10 @@ class LogModal extends React.Component {
     // TODO: Yo creo que toca hacer un componente
     // que se renderice el header segun si está o no está el log.
     return (
-      <div id="log-modal" className="modal">
+      <div id="tracker-modal" className="modal">
         <div className="modal-content">
-          <h4>Agregar log</h4>
-          <p>Complete la siguiente información para agregar un log</p>
+          <h4>Agregar tracker</h4>
+          <p>Complete la siguiente información para agregar un tracker</p>
           <div className="row">
             <form className="col s12">
               <div className="row">
@@ -71,7 +72,19 @@ class LogModal extends React.Component {
 
 LogModal.propTypes = {
   handleClick: React.PropTypes.func,
-  log: React.PropTypes.object,
+  tracker: React.PropTypes.object,
 };
 
-module.exports = LogModal;
+function mapStateToProps(state) {
+  return state.tracker;
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    save(tracker) {
+      console.log(tracker);
+    },
+  };
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(LogModal);

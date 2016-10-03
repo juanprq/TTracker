@@ -1,9 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import TrackerItem from './TrackerItem';
 import TrackerTitle from './TrackerTitle';
 import DaySelector from './DaySelector';
 
-function Tracker({ logs, currentDate, handleItemClick }) {
+function Tracker({ isLoading, trackers, currentDate, handleClick }) {
   let dateObject;
 
   if (!currentDate) {
@@ -22,7 +23,13 @@ function Tracker({ logs, currentDate, handleItemClick }) {
       </div>
       <div className="section">
         <div className="collection">
-          {logs.map(log => <TrackerItem key={log.id} log={log} handleClick={handleItemClick} />)}
+          {(() => {
+            if (isLoading) {
+              return (<h2>Loading...</h2>);
+            } else {
+              return trackers.map(tracker => <TrackerItem key={tracker.id} tracker={tracker} handleClick={handleClick} />);
+            }
+          })()}
         </div>
       </div>
     </div>
@@ -30,9 +37,27 @@ function Tracker({ logs, currentDate, handleItemClick }) {
 }
 
 Tracker.propTypes = {
-  logs: React.PropTypes.array,
+  trackers: React.PropTypes.array,
   currentDate: React.PropTypes.string,
-  handleItemClick: React.PropTypes.func,
+  handleClick: React.PropTypes.func,
+  isLoading: React.PropTypes.bool,
 };
 
-module.exports = Tracker;
+function mapStateToProps(state, ownProps) {
+  return {
+    trackers: state.trackers.data,
+    isLoading: state.trackers.loading,
+    currentDate: ownProps.currentDate,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    handleClick: (event, tracker) => {
+      event.preventDefault();
+      console.log(tracker);
+    },
+  };
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Tracker);

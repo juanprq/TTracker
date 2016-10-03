@@ -1,24 +1,24 @@
 import React from 'react';
 
 function TrackerItem(props) {
-  const colorClass = `material-icons circle ${props.log.color}`;
-  const textColor = `${props.log.color}-text`;
+  const colorClass = `material-icons circle ${props.tracker.color}`;
+  const textColor = `${props.tracker.color}-text`;
 
   return (
-    <a className="collection-item avatar" onClick={(event) => { props.handleClick(event, props.log); }}>
+    <a className="collection-item avatar" onClick={(event) => { props.handleClick(event, props.tracker); }}>
       {props.handleClick}
       <div className="row">
         <div className="col m11">
           <i className={colorClass}>av_timer</i>
-          <span className="title indigo-text darken-4-text">{props.log.title}</span>
+          <span className="title indigo-text darken-4-text">{props.tracker.title}</span>
           <p>
-            {props.log.description}
-            {props.log.icon}
+            {props.tracker.description}
+            {props.tracker.icon}
           </p>
         </div>
         <div className="col m1">
           <span className={textColor} style={{ fontSize: 30, position: 'relative', top: 21 }}>
-            {props.log.time}
+            {props.tracker.time}
           </span>
         </div>
       </div>
@@ -27,7 +27,7 @@ function TrackerItem(props) {
 }
 
 TrackerItem.propTypes = {
-  log: React.PropTypes.object,
+  tracker: React.PropTypes.object,
   handleClick: React.PropTypes.func,
 };
 

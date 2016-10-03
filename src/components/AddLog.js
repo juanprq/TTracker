@@ -1,17 +1,28 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as trackersActions from '../actions/trackersActions';
 
-function AddLog(props) {
+function AddLog({ handleClick }) {
   return (
     <div className="fixed-action-btn" style={{ bottom: 45, right: 24 }}>
-      <a className="btn-floating btn-large red" onClick={props.handleClick}>
+      <a className="btn-floating btn-large red" onClick={handleClick}>
         <i className="large material-icons">add</i>
       </a>
     </div>
   );
 }
 
-AddLog.PropTypes = {
+AddLog.propTypes = {
   handleClick: React.PropTypes.func,
 };
 
-module.exports = AddLog;
+function mapDispatchToProps(dispatch) {
+  return {
+    handleClick() {
+      $('#tracker-modal').openModal();
+      dispatch(trackersActions.newTracker());
+    },
+  };
+}
+
+module.exports = connect(null, mapDispatchToProps)(AddLog);

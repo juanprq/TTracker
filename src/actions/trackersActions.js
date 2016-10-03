@@ -1,5 +1,11 @@
 import getLogs from '../services/time-logs';
 
+export function newTracker() {
+  return {
+    type: 'NEW_TRACKER',
+  };
+}
+
 export function addTracker() {
   return {
     type: 'ADD_TRACKER',
@@ -21,7 +27,7 @@ export function removeTracker() {
   };
 }
 
-export function fetchTracker() {
+export function fetchTrackers() {
   return {
     type: 'FETCH_TRACKERS',
     payload: getLogs(),
