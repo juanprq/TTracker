@@ -10,7 +10,7 @@ function trackers(state = defaultState, action) {
     case 'FETCH_TRACKERS_PENDING':
       return Object.assign({}, state, { loading: true });
     case 'FETCH_TRACKERS_FULFILLED':
-      return Object.assign({}, state, { data: action.payload, loading: false });
+      return Object.assign({}, state, { data: action.payload.data, loading: false });
     case 'UPDATE_TRACKER_REJECTED':
       return state;
     case 'UPDATE_TRACKER_PENDING':

@@ -1,4 +1,4 @@
-import getLogs from '../services/time-logs';
+import axios from 'axios';
 
 export function newTracker() {
   return {
@@ -37,6 +37,6 @@ export function removeTracker(tracker) {
 export function fetchTrackers() {
   return {
     type: 'FETCH_TRACKERS',
-    payload: getLogs(),
+    payload: axios.get('/api/v1/trackers'),
   };
 }

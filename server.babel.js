@@ -2,6 +2,7 @@ import express from 'express';
 import fs from 'fs';
 import './app/lib/db';
 import './app/models/projects';
+import './app/models/trackers';
 
 const app = express();
 
