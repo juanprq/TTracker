@@ -1,8 +1,12 @@
-const React = require('react');
-const DayLink = require('./DayLink');
+import React from 'react';
+import DayLink from './DayLink';
+
+function formatDate(date) {
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+}
 
 function DaySelector({ currentDate }) {
-  let dates = [];
+  const dates = [];
 
   for (let i = -2; i <= 2; i += 1) {
     const date = new Date(currentDate.getTime());
@@ -13,10 +17,14 @@ function DaySelector({ currentDate }) {
   return (
     <div className="center-align">
         <ul className="pagination">
-          {dates.map((date, index) => <DayLink date={date} key={index} isActive={date.getTime() === currentDate.getTime()} />)}
+          {dates.map((date, index) => <DayLink date={formatDate(date)} key={index} isActive={date.getTime() === currentDate.getTime()} />)}
         </ul>
     </div>
   );
 }
+
+DaySelector.propTypes = {
+  currentDate: React.PropTypes.object,
+};
 
 module.exports = DaySelector;

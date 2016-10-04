@@ -1,21 +1,19 @@
-const React = require('react');
-const { Link } = require('react-router');
+import React from 'react';
+import { Link } from 'react-router';
 
 function DayLink({ date, isActive }) {
-  const textDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
   const className = isActive ? 'waves-effect active indigo' : 'waves-effect';
-
-  console.log(isActive);
+  const path = `/trackers/${date}`;
 
   return (
     <li className={className}>
-      <Link>{textDate}</Link>
+      <Link to={path}>{date}</Link>
     </li>
   );
 }
 
 DayLink.propTypes = {
-  date: React.PropTypes.object,
+  date: React.PropTypes.string,
   isActive: React.PropTypes.bool,
 };
 

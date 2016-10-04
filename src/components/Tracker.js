@@ -1,32 +1,72 @@
-const React = require('react');
-const TrackerItem = require('./TrackerItem');
-const TrackerTitle = require('./TrackerTitle');
-const DaySelector = require('./DaySelector');
+import React from 'react';
+import { connect } from 'react-redux';
+import TrackerItem from './TrackerItem';
+import TrackerTitle from './TrackerTitle';
+import DaySelector from './DaySelector';
+import * as trackersActions from '../actions/trackersActions';
 
-function Tracker(props) {
+class Tracker extends React.Component {
+  componentDidMount() {
+    this.props.handleMount();
+  }
+  render() {
+    let dateObject;
 
-  const currentDate = new Date();
+    if (!this.props.currentDate) {
+      dateObject = new Date();
+    } else {
+      dateObject = new Date(this.props.currentDate);
+    }
 
-  return (
-    <div className="col m12">
-      <div className="section">
-        <TrackerTitle />
-      </div>
-      <div className="section">
-        <DaySelector currentDate={currentDate} />
-      </div>
-      <div className="section">
-        <div className="collection">
-          {props.logs.map(log => <TrackerItem key={log.id} log={log} handleClick={props.handleItemClick} />)}
+    return (
+      <div className="col m12">
+        <div className="section">
+          <TrackerTitle currentDate={dateObject} />
+        </div>
+        <div className="section">
+          <DaySelector currentDate={dateObject} />
+        </div>
+        <div className="section">
+          <div className="collection">
+            {(() => {
+              if (this.props.isLoading) {
+                return (<h2>Loading...</h2>);
+              } else {
+                return this.props.trackers.map(tracker => <TrackerItem key={tracker._id} tracker={tracker} handleClick={this.props.handleClick} />);
+              }
+            })()}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 Tracker.propTypes = {
-  logs: React.PropTypes.array,
-  handleItemClick: React.PropTypes.func,
+  trackers: React.PropTypes.array,
+  currentDate: React.PropTypes.string,
+  handleClick: React.PropTypes.func,
+  handleMpunt: React.PropTypes.func,
+  isLoading: React.PropTypes.bool,
 };
 
-module.exports = Tracker;
+function mapStateToProps(state, ownProps) {
+  return {
+    trackers: state.trackers.data,
+    isLoading: state.trackers.loading,
+    currentDate: ownProps.currentDate,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    handleMount: () => dispatch(trackersActions.fetchTrackers()),
+    handleClick: (event, tracker) => {
+      event.preventDefault();
+      $('#tracker-modal').openModal();
+      dispatch(trackersActions.setTracker(tracker));
+    },
+  };
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Tracker);

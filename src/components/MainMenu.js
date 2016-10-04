@@ -1,8 +1,8 @@
-const React = require('react');
-const { IndexLink } = require('react-router');
-const NavLink = require('./NavLink');
+import React from 'react';
+import { IndexLink } from 'react-router';
+import NavLink from './NavLink';
 
-function MainMenu(props) {
+function MainMenu({ children }) {
   return (
     <div>
       <nav className="indigo" role="navigation">
@@ -25,7 +25,7 @@ function MainMenu(props) {
         <div className="section">
           <div className="row">
             <div className="s12">
-              {props.children}
+              {children}
             </div>
           </div>
         </div>

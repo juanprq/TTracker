@@ -1,8 +1,7 @@
-const React = require('react');
+import React from 'react';
 
-function TrackerItem({ text, description }) {
-  const date = new Date();
-  const textDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+function TrackerItem({ text, description, currentDate }) {
+  const textDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
 
   return (
     <div>
@@ -19,6 +18,7 @@ function TrackerItem({ text, description }) {
 TrackerItem.propTypes = {
   text: React.PropTypes.string,
   description: React.PropTypes.string,
+  currentDate: React.PropTypes.object,
 };
 
 TrackerItem.defaultProps = {
