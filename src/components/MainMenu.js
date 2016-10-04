@@ -1,10 +1,8 @@
 import React from 'react';
 import { IndexLink } from 'react-router';
-import { connect } from 'react-redux';
-import * as trackersActions from '../actions/trackersActions';
 import NavLink from './NavLink';
 
-function MainMenu(props) {
+function MainMenu({ children }) {
   return (
     <div>
       <nav className="indigo" role="navigation">
@@ -13,7 +11,7 @@ function MainMenu(props) {
             TTracker
           </IndexLink>
           <ul className="right hide-on-med-and-down">
-            <NavLink to="/trackers" onClick={props.handleTrackersClick}>
+            <NavLink to="/trackers">
               Trackers
             </NavLink>
             <NavLink to="/reports">
@@ -27,7 +25,7 @@ function MainMenu(props) {
         <div className="section">
           <div className="row">
             <div className="s12">
-              {props.children}
+              {children}
             </div>
           </div>
         </div>
@@ -38,15 +36,6 @@ function MainMenu(props) {
 
 MainMenu.propTypes = {
   children: React.PropTypes.object,
-  handleTrackersClick: React.PropTypes.func,
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    handleTrackersClick: () => {
-      dispatch(trackersActions.fetchTrackers());
-    },
-  };
-}
-
-module.exports = connect(null, mapDispatchToProps)(MainMenu);
+module.exports = MainMenu;

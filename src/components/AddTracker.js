@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as trackersActions from '../actions/trackersActions';
 
-function AddLog({ handleClick }) {
+function AddTracker({ handleClick }) {
   return (
     <div className="fixed-action-btn" style={{ bottom: 45, right: 24 }}>
       <a className="btn-floating btn-large red" onClick={handleClick}>
@@ -12,7 +12,7 @@ function AddLog({ handleClick }) {
   );
 }
 
-AddLog.propTypes = {
+AddTracker.propTypes = {
   handleClick: React.PropTypes.func,
 };
 
@@ -25,4 +25,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-module.exports = connect(null, mapDispatchToProps)(AddLog);
+module.exports = connect(null, mapDispatchToProps)(AddTracker);

@@ -1,15 +1,15 @@
 import React from 'react';
 import Tracker from './Tracker';
-import AddLog from './AddLog';
-import LogModal from './LogModal';
+import AddTracker from './AddTracker';
+import TrackerModal from './TrackerModal';
 
 // este contenedor esta participando para ser extraido con connect
 function TrackerContainer({ params }) {
   return (
     <div>
       <Tracker currentDate={params.date} />
-      <AddLog />
-      <LogModal />
+      <AddTracker />
+      <TrackerModal />
     </div>
   );
 }

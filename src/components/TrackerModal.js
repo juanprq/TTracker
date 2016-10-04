@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import TrackerModalTitle from './TrackerModalTitle';
+import * as trackersActions from '../actions/trackersActions';
 
-class LogModal extends React.Component {
+class TrackerModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -15,13 +17,12 @@ class LogModal extends React.Component {
     this.setState({ newState });
   }
   render() {
-    // TODO: Yo creo que toca hacer un componente
-    // que se renderice el header segun si está o no está el log.
+    const action = this.props.id ? this.props.handleUpdate : this.props.handleAdd;
+
     return (
       <div id="tracker-modal" className="modal">
         <div className="modal-content">
-          <h4>Agregar tracker</h4>
-          <p>Complete la siguiente información para agregar un tracker</p>
+          <TrackerModalTitle />
           <div className="row">
             <form className="col s12">
               <div className="row">
@@ -51,14 +52,28 @@ class LogModal extends React.Component {
           </div>
         </div>
         <div className="modal-footer">
-          <a onClick={this.props.handleClick} className="modal-action modal-close waves-effect waves-light btn">
+          <a className="modal-action modal-close waves-effect waves-light btn"
+            onClick={
+              (event) => {
+                event.preventDefault();
+                action(this.state);
+              }
+            }
+          >
             <i className="material-icons left">
               done
             </i>
             Aceptar
           </a>
 
-          <a className="red modal-action modal-close waves-effect waves-light btn">
+          <a className="red modal-action modal-close waves-effect waves-light btn"
+            onClick={
+              (event) => {
+                event.preventDefault();
+                this.props.handleRemove(this.state);
+              }
+            }
+          >
             <i className="material-icons left">
               delete
             </i>
@@ -70,9 +85,10 @@ class LogModal extends React.Component {
   }
 }
 
-LogModal.propTypes = {
-  handleClick: React.PropTypes.func,
-  tracker: React.PropTypes.object,
+TrackerModal.propTypes = {
+  handleAdd: React.PropTypes.func,
+  handleUpdate: React.PropTypes.func,
+  handleRemove: React.PropTypes.func,
 };
 
 function mapStateToProps(state) {
@@ -81,10 +97,16 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    save(tracker) {
-      console.log(tracker);
+    handleAdd: (tracker) => {
+      dispatch(trackersActions.addTracker(tracker));
+    },
+    handleUpdate: (tracker) => {
+      dispatch(trackersActions.updateTracker(tracker));
+    },
+    handleRemove: (tracker) => {
+      dispatch(trackersActions.removeTracker(tracker));
     },
   };
 }
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(LogModal);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(TrackerModal);

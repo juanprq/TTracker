@@ -24,11 +24,11 @@ function trackers(state = defaultState, action) {
     case 'REMOVE_TRACKER_FULFILLED':
       return state;
     case 'ADD_TRACKER_REJECTED':
-      return state;
+      return Object.assign({}, state, { loading: false });
     case 'ADD_TRACKER_PENDING':
-      return state;
+      return Object.assign({}, state, { loading: true });
     case 'ADD_TRACKER_FULFILLED':
-      return state;
+      return Object.assign({}, state, { data: [...state.data, action.payload], loading: false });
     default:
       return state;
   }
