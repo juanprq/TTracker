@@ -2,11 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import TrackerModalTitle from './TrackerModalTitle';
 import * as trackersActions from '../actions/trackersActions';
+import * as projectsActions from '../actions/projectsActions';
 
 class TrackerModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+  }
+  componentDidMount() {
+    this.props.handleDidMount();
   }
   componentWillReceiveProps(nextProps) {
     this.setState(nextProps);
@@ -30,9 +34,18 @@ class TrackerModal extends React.Component {
                   <label htmlFor="project">Proyecto</label>
                   <select className="browser-default" onChange={(e) => { this.handleValueChange(e, 'projectId'); }} value={`${this.state.projectId}`}>
                     <option value="" disabled>Elegir opción</option>
-                    <option value="1">Buen usuario</option>
-                    <option value="2">Armada</option>
-                    <option value="3">Zupport</option>
+                    {
+                      this.props.projects.map((project) => {
+                        return (
+                          <option
+                            value={project._id}
+                            key={project._id}
+                          >
+                            {project.name}
+                          </option>
+                        );
+                      })
+                    }
                   </select>
                 </div>
               </div>
@@ -86,17 +99,25 @@ class TrackerModal extends React.Component {
 }
 
 TrackerModal.propTypes = {
+  projects: React.PropTypes.array,
+  handleDidMount: React.PropTypes.func,
   handleAdd: React.PropTypes.func,
   handleUpdate: React.PropTypes.func,
   handleRemove: React.PropTypes.func,
 };
 
 function mapStateToProps(state) {
-  return state.tracker;
+  return {
+    tracker: state.tracker,
+    projects: state.projects,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    handleDidMount: () => {
+      dispatch(projectsActions.fetchProjects());
+    },
     handleAdd: (tracker) => {
       dispatch(trackersActions.addTracker(tracker));
     },
