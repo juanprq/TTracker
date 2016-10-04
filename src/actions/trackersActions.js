@@ -16,7 +16,7 @@ export function setTracker(tracker) {
 export function addTracker(tracker) {
   return {
     type: 'ADD_TRACKER',
-    payload: new Promise(resolve => resolve(tracker)),
+    payload: axios.post('/api/v1/trackers', tracker),
   };
 }
 

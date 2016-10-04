@@ -8,6 +8,13 @@ const trackerSchema = new mongoose.Schema({
     name: String,
     color: String,
   },
-});
+},
+  {
+    timestamps: {
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
+    },
+  }
+);
 
-mongoose.model('Tracker', trackerSchema);
+module.exports = mongoose.model('Tracker', trackerSchema);

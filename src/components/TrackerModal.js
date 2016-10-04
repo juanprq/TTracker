@@ -118,8 +118,14 @@ function mapDispatchToProps(dispatch) {
     handleDidMount: () => {
       dispatch(projectsActions.fetchProjects());
     },
-    handleAdd: (tracker) => {
-      dispatch(trackersActions.addTracker(tracker));
+    handleAdd: (state) => {
+      dispatch(trackersActions.addTracker(
+        {
+          description: state.description,
+          projectId: state.projectId,
+          time: state.time,
+        }
+      ));
     },
     handleUpdate: (tracker) => {
       dispatch(trackersActions.updateTracker(tracker));

@@ -28,7 +28,7 @@ function trackers(state = defaultState, action) {
     case 'ADD_TRACKER_PENDING':
       return Object.assign({}, state, { loading: true });
     case 'ADD_TRACKER_FULFILLED':
-      return Object.assign({}, state, { data: [...state.data, action.payload], loading: false });
+      return Object.assign({}, state, { data: [...state.data, action.payload.data], loading: false });
     default:
       return state;
   }

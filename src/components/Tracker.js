@@ -32,7 +32,7 @@ class Tracker extends React.Component {
               if (this.props.isLoading) {
                 return (<h2>Loading...</h2>);
               } else {
-                return this.props.trackers.map(tracker => <TrackerItem key={tracker.id} tracker={tracker} handleClick={this.props.handleClick} />);
+                return this.props.trackers.map(tracker => <TrackerItem key={tracker._id} tracker={tracker} handleClick={this.props.handleClick} />);
               }
             })()}
           </div>

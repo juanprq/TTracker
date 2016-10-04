@@ -1,11 +1,13 @@
 import express from 'express';
 import fs from 'fs';
+import bodyParser from 'body-parser';
 import './app/lib/db';
 import './app/models/projects';
 import './app/models/trackers';
 
 const app = express();
 
+app.use(bodyParser.json());
 app.use(express.static('public'));
 
 fs.readdirSync('./app/controllers').forEach((file) => {
