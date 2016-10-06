@@ -23,7 +23,7 @@ export function addTracker(tracker) {
 export function updateTracker(tracker) {
   return {
     type: 'UPDATE_TRACKER',
-    payload: tracker,
+    payload: axios.put(`/api/v1/trackers/${tracker._id}`, tracker),
   };
 }
 

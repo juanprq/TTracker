@@ -50,7 +50,7 @@ module.exports.controller = (app) => {
         tracker.project = project;
 
         tracker.save()
-          .then(() => res.json({ status: 'ok' }))
+          .then(() => res.json({ status: 'ok', tracker: tracker }))
           .catch(error => res.json(error));
       });
     });

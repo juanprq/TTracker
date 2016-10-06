@@ -10,9 +10,18 @@ function trackers(state = defaultState, action) {
     case 'FETCH_TRACKERS_FULFILLED':
       return Object.assign({}, state, { data: action.payload.data, loading: false });
     case 'UPDATE_TRACKER_PENDING':
-      return state;
+      return Object.assign({}, state, { loading: true });
     case 'UPDATE_TRACKER_FULFILLED':
-      return state;
+      const updatedTracker = action.payload.data.tracker;
+      return Object.assign(
+        {},
+        state,
+        {
+          loading: false,
+          data: state.data.map((tracker) => {
+            return tracker._id !== updatedTracker._id ? tracker : updatedTracker;
+          }),
+        });
     case 'REMOVE_TRACKER_PENDING':
       return Object.assign({}, state, { loading: true });
     case 'REMOVE_TRACKER_FULFILLED':
