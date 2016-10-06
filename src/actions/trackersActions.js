@@ -23,14 +23,14 @@ export function addTracker(tracker) {
 export function updateTracker(tracker) {
   return {
     type: 'UPDATE_TRACKER',
-    payload: tracker,
+    payload: axios.put(`/api/v1/trackers/${tracker._id}`, tracker),
   };
 }
 
-export function removeTracker(tracker) {
+export function removeTracker(trackerId) {
   return {
     type: 'REMOVE_TRACKER',
-    payload: tracker,
+    payload: axios.delete(`/api/v1/trackers/${trackerId}`),
   };
 }
 

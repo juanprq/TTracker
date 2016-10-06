@@ -13,7 +13,7 @@ class TrackerModal extends React.Component {
     this.props.handleDidMount();
   }
   componentWillReceiveProps(nextProps) {
-    this.setState(nextProps);
+    this.setState(nextProps.tracker);
   }
   handleValueChange(event, field) {
     const newState = this.state;
@@ -21,7 +21,8 @@ class TrackerModal extends React.Component {
     this.setState({ newState });
   }
   render() {
-    const action = this.props.id ? this.props.handleUpdate : this.props.handleAdd;
+    const action = this.props.tracker._id ? this.props.handleUpdate : this.props.handleAdd;
+    const hideRemove = this.props.tracker._id ? '' : 'hide';
 
     return (
       <div id="tracker-modal" className="modal">
@@ -68,7 +69,6 @@ class TrackerModal extends React.Component {
           <a className="modal-action modal-close waves-effect waves-light btn"
             onClick={
               (event) => {
-                event.preventDefault();
                 action(this.state);
               }
             }
@@ -79,11 +79,11 @@ class TrackerModal extends React.Component {
             Aceptar
           </a>
 
-          <a className="red modal-action modal-close waves-effect waves-light btn"
+          <a className={`red modal-action modal-close waves-effect waves-light btn ${hideRemove}`}
             onClick={
               (event) => {
                 event.preventDefault();
-                this.props.handleRemove(this.state);
+                this.props.handleRemove(this.props.tracker._id);
               }
             }
           >
@@ -100,6 +100,7 @@ class TrackerModal extends React.Component {
 
 TrackerModal.propTypes = {
   projects: React.PropTypes.array,
+  tracker: React.PropTypes.object,
   handleDidMount: React.PropTypes.func,
   handleAdd: React.PropTypes.func,
   handleUpdate: React.PropTypes.func,
@@ -130,8 +131,8 @@ function mapDispatchToProps(dispatch) {
     handleUpdate: (tracker) => {
       dispatch(trackersActions.updateTracker(tracker));
     },
-    handleRemove: (tracker) => {
-      dispatch(trackersActions.removeTracker(tracker));
+    handleRemove: (trackerId) => {
+      dispatch(trackersActions.removeTracker(trackerId));
     },
   };
 }
