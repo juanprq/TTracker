@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import trackerSchema from '../models/trackers';
+import projectSchema from '../models/projects';
 
 module.exports.controller = (app) => {
   app.route('/api/v1/trackers')
@@ -35,5 +36,22 @@ module.exports.controller = (app) => {
       Tracker.findOne({ _id: req.params.id })
         .then(handleProject)
         .catch(error => res.json(error));
+    })
+    .put((req, res) => {
+      const Tracker = mongoose.model('Tracker', trackerSchema);
+      const Project = mongoose.model('Project', projectSchema);
+
+      Promise.all([
+        Tracker.findOne({ _id: req.params.id }),
+        Project.findOne({ _id: req.body.projectId }),
+      ]).then(([tracker, project, ...tail]) => {
+        tracker.description = req.body.description || tracker.description;
+        tracker.time = req.body.time || tracker.time;
+        tracker.project = project;
+
+        tracker.save()
+          .then(() => res.json({ status: 'ok' }))
+          .catch(error => res.json(error));
+      });
     });
 };
