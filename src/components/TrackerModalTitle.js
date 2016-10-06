@@ -24,7 +24,7 @@ TrackerModalTitle.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const isNew = state.tracker.id ? false : true;
+  const isNew = state.tracker._id ? false : true;
   return { isNew };
 }
 

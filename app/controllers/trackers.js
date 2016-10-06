@@ -4,22 +4,13 @@ import trackerSchema from '../models/trackers';
 module.exports.controller = (app) => {
   app.route('/api/v1/trackers')
     .get((req, res) => {
-      mongoose.model('Tracker').find({}, (error, trackers) => {
-        if (error) {
-          return console.error(error);
-        }
-
-        return res.json(trackers);
-      });
+      mongoose.model('Tracker').find({})
+        .then(trackers => res.json(trackers))
+        .catch(error => console.error(error));
     })
     .post((req, res) => {
-      mongoose.model('Project').find(
-        { _id: req.body.projectId },
-        (error, [project, ...tail]) => {
-          if (error) {
-            return res.json({ error });
-          }
-
+      mongoose.model('Project').findOne({ _id: req.body.projectId })
+        .then((project) => {
           const Tracker = mongoose.model('Tracker', trackerSchema);
           const tracker = new Tracker();
 
@@ -29,7 +20,7 @@ module.exports.controller = (app) => {
 
           tracker.save();
           return res.json(tracker);
-        }
-      );
+        })
+        .catch(error => console.error(error));
     });
 };
