@@ -23,4 +23,17 @@ module.exports.controller = (app) => {
         })
         .catch(error => console.error(error));
     });
+
+  app.route('/api/v1/trackers/:id')
+    .delete((req, res) => {
+      const Tracker = mongoose.model('Tracker', trackerSchema);
+      const handleProject = (tracker) => {
+        tracker.remove()
+          .then(() => res.json({ status: 'ok', tracker }));
+      };
+
+      Tracker.findOne({ _id: req.params.id })
+        .then(handleProject)
+        .catch(error => res.json(error));
+    });
 };
