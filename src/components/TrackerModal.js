@@ -68,7 +68,6 @@ class TrackerModal extends React.Component {
           <a className="modal-action modal-close waves-effect waves-light btn"
             onClick={
               (event) => {
-                event.preventDefault();
                 action(this.state);
               }
             }
@@ -86,7 +85,7 @@ class TrackerModal extends React.Component {
                   onClick={
                     (event) => {
                       event.preventDefault();
-                      this.props.handleRemove(this.state);
+                      this.props.handleRemove(this.props.tracker._id);
                     }
                   }
                 >
@@ -108,6 +107,7 @@ class TrackerModal extends React.Component {
 
 TrackerModal.propTypes = {
   projects: React.PropTypes.array,
+  tracker: React.PropTypes.object,
   handleDidMount: React.PropTypes.func,
   handleAdd: React.PropTypes.func,
   handleUpdate: React.PropTypes.func,
@@ -138,8 +138,8 @@ function mapDispatchToProps(dispatch) {
     handleUpdate: (tracker) => {
       dispatch(trackersActions.updateTracker(tracker));
     },
-    handleRemove: (tracker) => {
-      dispatch(trackersActions.removeTracker(tracker));
+    handleRemove: (trackerId) => {
+      dispatch(trackersActions.removeTracker(trackerId));
     },
   };
 }

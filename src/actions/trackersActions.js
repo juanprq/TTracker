@@ -27,10 +27,10 @@ export function updateTracker(tracker) {
   };
 }
 
-export function removeTracker(tracker) {
+export function removeTracker(trackerId) {
   return {
     type: 'REMOVE_TRACKER',
-    payload: tracker,
+    payload: axios.delete(`/api/v1/trackers/${trackerId}`),
   };
 }
 
