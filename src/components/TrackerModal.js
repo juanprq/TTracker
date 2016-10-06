@@ -22,6 +22,7 @@ class TrackerModal extends React.Component {
   }
   render() {
     const action = this.props.tracker._id ? this.props.handleUpdate : this.props.handleAdd;
+    const hideRemove = this.props.tracker._id ? '' : 'hide';
 
     return (
       <div id="tracker-modal" className="modal">
@@ -78,27 +79,19 @@ class TrackerModal extends React.Component {
             Aceptar
           </a>
 
-          {(() => {
-            if (this.props.tracker._id) {
-              return (
-                <a className="red modal-action modal-close waves-effect waves-light btn"
-                  onClick={
-                    (event) => {
-                      event.preventDefault();
-                      this.props.handleRemove(this.props.tracker._id);
-                    }
-                  }
-                >
-                  <i className="material-icons left">
-                    delete
-                  </i>
-                  Eliminar
-                </a>
-              );
+          <a className={`red modal-action modal-close waves-effect waves-light btn ${hideRemove}`}
+            onClick={
+              (event) => {
+                event.preventDefault();
+                this.props.handleRemove(this.props.tracker._id);
+              }
             }
-
-            return null;
-          })()}
+          >
+            <i className="material-icons left">
+              delete
+            </i>
+            Eliminar
+          </a>
         </div>
       </div>
     );
