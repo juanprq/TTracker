@@ -12,7 +12,7 @@ This projects uses the next list of technologies:
  * React: as the client ui library.
  * Redux: To manage the state in the client.
  * Express: to implement the backend.
- * Pending the test libraries.
+ * Jest: Testing library for the simple logic in redux.
 
 Installation
 ---
@@ -28,4 +28,4 @@ To access the web application enter in your browser and use [`http://localhost:3
 Tests
 ---
 
-PENDING...
+The tests for the client implementation are in the `__test__` folder, to run the test suit one, execute the command `npm test`, if you are implementing new tests, you can watch file changes to tun the tests automatically, to do that run the command `npm run test:watch`.
