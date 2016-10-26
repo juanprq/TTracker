@@ -1,3 +1,5 @@
+/* global describe it expect beforeEach spyOn */
+
 import axios from 'axios';
 import * as actions from '../../src/actions/projectsActions';
 import * as types from '../../src/constants/actionTypes';

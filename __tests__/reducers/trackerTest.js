@@ -1,3 +1,5 @@
+/* global describe it expect beforeEach */
+
 import reducer from '../../src/reducers/tracker';
 import * as types from '../../src/constants/actionTypes';
 
