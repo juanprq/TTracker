@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as trackersActions from '../actions/trackersActions';
+import * as modal from '../lib/trackerModal';
 
 function AddTracker({ handleClick }) {
   return (
@@ -19,7 +20,7 @@ AddTracker.propTypes = {
 function mapDispatchToProps(dispatch) {
   return {
     handleClick() {
-      $('#tracker-modal').openModal();
+      modal.open();
       dispatch(trackersActions.newTracker());
     },
   };

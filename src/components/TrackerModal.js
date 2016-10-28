@@ -66,7 +66,7 @@ class TrackerModal extends React.Component {
           </div>
         </div>
         <div className="modal-footer">
-          <a className="modal-action modal-close waves-effect waves-light btn"
+          <a className="modal-action waves-effect waves-light btn"
             onClick={
               (event) => {
                 action(this.state);
@@ -120,6 +120,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(projectsActions.fetchProjects());
     },
     handleAdd: (state) => {
+      // Validar el estado... y si no pues nada...
+
       dispatch(trackersActions.addTracker(
         {
           description: state.description,

@@ -1,9 +1,9 @@
 import React from 'react';
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import MainMenu from './MainMenu';
 import TrackerContainer from './TrackerContainer';
 import Home from './Home';
 import Reports from './Reports';
-import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
 function Root() {
   return (

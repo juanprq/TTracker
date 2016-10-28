@@ -4,6 +4,7 @@ import TrackerItem from './TrackerItem';
 import TrackerTitle from './TrackerTitle';
 import DaySelector from './DaySelector';
 import * as trackersActions from '../actions/trackersActions';
+import * as modal from '../lib/trackerModal';
 
 class Tracker extends React.Component {
   componentDidMount() {
@@ -31,9 +32,9 @@ class Tracker extends React.Component {
             {(() => {
               if (this.props.isLoading) {
                 return (<h2>Loading...</h2>);
-              } else {
-                return this.props.trackers.map(tracker => <TrackerItem key={tracker._id} tracker={tracker} handleClick={this.props.handleClick} />);
               }
+
+              return this.props.trackers.map(tracker => <TrackerItem key={tracker._id} tracker={tracker} handleClick={this.props.handleClick} />);
             })()}
           </div>
         </div>
@@ -63,7 +64,7 @@ function mapDispatchToProps(dispatch) {
     handleMount: () => dispatch(trackersActions.fetchTrackers()),
     handleClick: (event, tracker) => {
       event.preventDefault();
-      $('#tracker-modal').openModal();
+      modal.open();
       dispatch(trackersActions.setTracker(tracker));
     },
   };

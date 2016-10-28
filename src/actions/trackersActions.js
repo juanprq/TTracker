@@ -1,3 +1,5 @@
+/* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }]*/
+
 import axios from 'axios';
 
 export function newTracker() {
