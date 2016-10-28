@@ -25,7 +25,8 @@ describe('tracker reducer', () => {
         type: types.NEW_TRACKER,
       };
 
-      expect(reducer(state, action)).toEqual(defaultState);
+      const response = Object.assign({}, defaultState, { error: false });
+      expect(reducer(state, action)).toEqual(response);
     });
   });
 
@@ -45,7 +46,8 @@ describe('tracker reducer', () => {
         payload: tracker,
       };
 
-      expect(reducer(state, action)).toEqual(tracker);
+      const response = Object.assign({}, tracker, { error: false });
+      expect(reducer(state, action)).toEqual(response);
     });
   });
 });
