@@ -42,3 +42,9 @@ export function fetchTrackers() {
     payload: axios.get('/api/v1/trackers'),
   };
 }
+
+export function displayError() {
+  return {
+    type: 'DISPLAY_ERROR_TRACKER',
+  };
+}

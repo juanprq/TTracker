@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import TrackerModalTitle from './TrackerModalTitle';
 import * as trackersActions from '../actions/trackersActions';
 import * as projectsActions from '../actions/projectsActions';
+import * as trackerUtils from '../lib/trackerUtils';
+import * as modal from '../lib/trackerModal';
 
 class TrackerModal extends React.Component {
   constructor(props) {
@@ -20,14 +22,31 @@ class TrackerModal extends React.Component {
     newState[field] = event.target.value;
     this.setState({ newState });
   }
+  errorMessage() {
+    if (this.props.error) {
+      return (
+        <div className="row">
+          <div className="col s12">
+            <div className="card-panel red lighten-4">
+              Por favor complete todos los campos del formulario.
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return null;
+  }
   render() {
     const action = this.props.tracker._id ? this.props.handleUpdate : this.props.handleAdd;
     const hideRemove = this.props.tracker._id ? '' : 'hide';
+    const errorMessage = this.errorMessage();
 
     return (
       <div id="tracker-modal" className="modal">
         <div className="modal-content">
           <TrackerModalTitle />
+          {errorMessage}
           <div className="row">
             <form className="col s12">
               <div className="row">
@@ -101,6 +120,7 @@ class TrackerModal extends React.Component {
 TrackerModal.propTypes = {
   projects: React.PropTypes.array,
   tracker: React.PropTypes.object,
+  error: React.PropTypes.bool,
   handleDidMount: React.PropTypes.func,
   handleAdd: React.PropTypes.func,
   handleUpdate: React.PropTypes.func,
@@ -110,6 +130,7 @@ TrackerModal.propTypes = {
 function mapStateToProps(state) {
   return {
     tracker: state.tracker,
+    error: state.tracker.error,
     projects: state.projects,
   };
 }
@@ -120,18 +141,29 @@ function mapDispatchToProps(dispatch) {
       dispatch(projectsActions.fetchProjects());
     },
     handleAdd: (state) => {
-      // Validar el estado... y si no pues nada...
 
-      dispatch(trackersActions.addTracker(
-        {
-          description: state.description,
-          projectId: state.projectId,
-          time: state.time,
-        }
-      ));
+      const valid = trackerUtils.validate(state);
+      if (valid) {
+        dispatch(trackersActions.addTracker(
+          {
+            description: state.description,
+            projectId: state.projectId,
+            time: state.time,
+          }
+        ));
+        modal.close();
+      } else {
+        dispatch(trackersActions.displayError());
+      }
     },
     handleUpdate: (tracker) => {
-      dispatch(trackersActions.updateTracker(tracker));
+      const valid = trackerUtils.validate(tracker);
+      if (valid) {
+        dispatch(trackersActions.updateTracker(tracker));
+        modal.close();
+      } else {
+        dispatch(trackersActions.displayError());
+      }
     },
     handleRemove: (trackerId) => {
       dispatch(trackersActions.removeTracker(trackerId));
