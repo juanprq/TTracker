@@ -4,7 +4,7 @@ import axios from 'axios';
 import * as actions from '../../src/actions/projectsActions';
 import * as types from '../../src/constants/actionTypes';
 
-describe('actions', () => {
+describe('Projects actions', () => {
   const payload = 'test';
   beforeEach(() => {
     spyOn(axios, 'get').and.returnValue(payload);
